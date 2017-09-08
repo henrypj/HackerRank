@@ -12,25 +12,25 @@ import sys
 #
 # The queen is standing at position (r(q), c(q)) and, in a single move, she can
 # attack any square in any of the eight directions (left, right, up, down, or 
-# the four diagonals). In the diagram below, the "O" denote all the cells the
+# the four diagonals). In the diagram below, the "√" denote all the cells the
 # queen can attack from :
 #
 #          +---+---+---+---+---+---+---+---+
-#        8 |   |   |   | O |   |   |   | O |
+#        8 |   |   |   | √ |   |   |   | √ |
 #          +---+---+---+---+---+---+---+---+
-#        7 | X |   |   | O |   |   | O |   |
+#        7 | √ |   |   | √ |   |   | √ |   |
 #          +---+---+---+---+---+---+---+---+
-#        6 |   | X |   | O |   | X |   |   |
+#        6 |   | √ |   | √ |   | √ |   |   |
 #          +---+---+---+---+---+---+---+---+
-#        5 |   |   | X | O | X |   |   |   |
+#        5 |   |   | √ | √ | √ |   |   |   |
 #          +---+---+---+---+---+---+---+---+
-#        4 | X | X | X | # | X | X | X | X |
+#        4 | √ | √ | √ | Q | √ | X | √ | √ |
 #          +---+---+---+---+---+---+---+---+
-#        3 |   |   | X | O | X |   |   |   |
+#        3 |   |   | √ | √ | √ |   |   |   |
 #          +---+---+---+---+---+---+---+---+
-#        2 |   | X |   | O |   | X |   |   |
+#        2 |   | √ |   | √ |   | √ |   |   |
 #          +---+---+---+---+---+---+---+---+
-#        1 | X |   |   | O |   |   | X |   |
+#        1 | √ |   |   | √ |   |   | √ |   |
 #          +---+---+---+---+---+---+---+---+
 #            1   2   3   4   5   6   7   8
 #
@@ -40,21 +40,21 @@ import sys
 # queen from attacking cells (3,5), (2,6), and (1,7):
 #
 #          +---+---+---+---+---+---+---+---+
-#        8 |   |   |   | X |   |   |   | X |
+#        8 |   |   |   | √ |   |   |   | √ |
 #          +---+---+---+---+---+---+---+---+
-#        7 | X |   |   | X |   |   | X |   |
+#        7 | √ |   |   | √ |   |   | √ |   |
 #          +---+---+---+---+---+---+---+---+
-#        6 |   | X |   | X |   | X |   |   |
+#        6 |   | √ |   | √ |   | √ |   |   |
 #          +---+---+---+---+---+---+---+---+
-#        5 |   |   | X | X | X |   |   |   |
+#        5 |   |   | √ | √ | √ |   |   |   |
 #          +---+---+---+---+---+---+---+---+
-#        4 | X | X | X | Q | X | X | X | X |
+#        4 | √ | √ | √ | Q | √ | X | √ | √ |
 #          +---+---+---+---+---+---+---+---+
-#        3 |   |   | X | X | * |   |   |   |
+#        3 |   |   | √ | √ | X |   |   |   |
 #          +---+---+---+---+---+---+---+---+
-#        2 |   | X |   | X |   | * |   |   |
+#        2 |   | √ |   | √ |   |   |   |   |
 #          +---+---+---+---+---+---+---+---+
-#        1 | X |   |   | X |   |   | * |   |
+#        1 | √ |   |   | √ |   |   |   |   |
 #          +---+---+---+---+---+---+---+---+
 #            1   2   3   4   5   6   7   8
 #
@@ -95,7 +95,7 @@ import sys
 #
 # Print the number of squares that the queen can attack from position (r(q),c(q)).
 #
-# Example
+# Example 0
 #
 # Given Input:
 # 4 0
@@ -104,22 +104,53 @@ import sys
 # Output:
 # 9
 #
-# Explanation:
+# Explanation 0:
 #
-# The queen is standing at position (4,3) on a 5 x 5 chessboard with no obstacles:
+# The queen is standing at position (4,4) on a 4 x 4 chessboard with no obstacles:
+#
+#          +---+---+---+---+
+#        4 | √ | √ | √ | Q |
+#          +---+---+---+---+
+#        3 |   |   | √ | √ |
+#          +---+---+---+---+
+#        2 |   | √ |   | √ |
+#          +---+---+---+---+
+#        1 | √ |   |   | √ |
+#          +---+---+---+---+
+#            1   2   3   4   
+#
+# We then print the number of squares she can attack from that position, which is 9.
+#
+# Example 1
+#
+# Given Input:
+# 5 3
+# 4 3
+# 5 5
+# 4 2
+# 2 3
+#
+# Output:
+# 10
+#
+# Explanation 1:
+#
+# The queen is standing at position (4,3) on a 5 x 5 chessboard with k=3 obstacles:
 #
 #          +---+---+---+---+---+
-#        5 |   |   |   |   |   |
+#        5 |   | √ | √ | √ | X |
 #          +---+---+---+---+---+
-#        4 |   |   | Q |   |   |
+#        4 |   | X | Q | √ | √ |
 #          +---+---+---+---+---+
-#        3 |   |   |   |   |   |
+#        3 |   | √ | √ | √ |   |
 #          +---+---+---+---+---+
-#        2 |   |   |   |   |   |
+#        2 | √ |   | X |   | √ |
 #          +---+---+---+---+---+
 #        1 |   |   |   |   |   |
 #          +---+---+---+---+---+
-#            1   2   3   4   5  
+#            1   2   3   4   5 
+#
+# We then print the number of squares she can attack from that position, which is 10.
 #
 # Solution
 # Save for later...
@@ -154,20 +185,20 @@ Qnw = min(n-rQueen, abs(1-cQueen))
 
 print(Qn, Qne, Qe, Qse, Qs, Qsw, Qw, Qnw)
 
-if rObstacle == rQueen:
-    if cObstacle < cQueen and cQueen - cObstacle < Qw:
-        Qw = cQueen - cObstacle
-    elif cObstacle > cQueen and cObstacle - cQueen < Qe:
-        Qe = cObstacle - cQueen
-elif rObstacle > rQueen:
-    if cObstacle < cQueen and 
-
-for row in range(n):
-    for col in range(n):
-        if row == rQueen:
-            board[row][col] = 1
-        if col == cQueen:
-            board[row][col] = 1
+#if rObstacle == rQueen:
+#    if cObstacle < cQueen and cQueen - cObstacle < Qw:
+#        Qw = cQueen - cObstacle
+#    elif cObstacle > cQueen and cObstacle - cQueen < Qe:
+#        Qe = cObstacle - cQueen
+#elif rObstacle > rQueen:
+#    if cObstacle < cQueen and 
+#
+#for row in range(n):
+#    for col in range(n):
+#        if row == rQueen:
+#            board[row][col] = 1
+#        if col == cQueen:
+#            board[row][col] = 1
 
 print(board)
  

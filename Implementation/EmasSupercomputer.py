@@ -121,146 +121,69 @@ import sys
 #
 # Solution:
 # 
+# NOTE THE SOLUTIONS BELOW ARE SAMPLE CODE ONLY, NOT SOLUTIONS TO THIS
+#
 """
-##############
-# SOLUTION 2 #
-##############
-from copy import deepcopy
-R,C,N = input().strip().split(' ')
-R,C,N = [int(R),int(C),int(N)]
-G  = []
-
-Gsec = [[0 for x in range(C)] for y in range(R)]
-all_bombs = [['O' for x in range(C)] for y in range(R)]
-FILENAME = 'bomberman.txt'
-
-# Used the following to test with one of the test cases 200 187 5
-#
-#def load_rows(rows):
-#    """
-#    Returns a list of rows that make up the test cas
-#    """
-#    rowlist = []
-#    print("Loading rows from file...")
-#    # inFile: file
-#    inFile = open(FILENAME, 'r')
-#    # line: string
-#    for r in range(rows):
-#        line = inFile.readline()
-#        rowlist.append(list(line.strip()))
-#    print("  ", len(rowlist), "rowss loaded.")
-#    return rowlist
-#
-#G = load_rows(R)
-
-
-for c in range(R):
-    G.append(list(input().strip()))
-
-for sec in range(7):    # Only need to generate up to 7 patterns
-    print("Second => ", sec)
-    if sec % 2 == 0 and sec != 0:   # Plant bombs
-        for row in range(R):
-            for col in range(C):
-                if G[row][col] == ".":
-                    G[row][col]    = "O"
-                    Gsec[row][col] = 1
-                else:
-                    Gsec[row][col] += 1
-    else:
-        for row in range(R):
-            for col in range(C):
-                if G[row][col] == "O" and Gsec[row][col] == 3:   # Bonb detonates
-                    G[row][col]    = "."
-                    Gsec[row][col] = 0
-                    # Detonate neighboring cells
-                    if row >= 1:
-                        G[row - 1][col]    = "."
-                        Gsec[row - 1][col] = 0
-                    if row < R - 1 and Gsec[row + 1][col] != 3:    
-                        G[row + 1][col]    = "."
-                        Gsec[row + 1][col] = 0
-                    if col >= 1:
-                        G[row][col - 1]    = "."
-                        Gsec[row][col - 1] = 0
-                    if col < C - 1 and Gsec[row][col + 1] != 3:
-                        G[row][col + 1]    = "."
-                        Gsec[row][col + 1] = 0
-                elif G[row][col] == "O" and Gsec[row][col] < 3:
-                    Gsec[row][col] += 1
-#
-#    for row in G:    
-#        print(''.join(str(x) for x in row))
-#    print("\r")
-#
-    if sec == 1:
-        G1 = deepcopy(G)
-    elif sec == 3:
-        G3 = deepcopy(G)
-    elif sec == 5:
-        G5 = deepcopy(G)
-
-if N == 0 or N == 1:
-    for row in G1:
-        print(''.join(str(x) for x in row))
-elif N % 2 == 0:
-    for row in all_bombs:    
-        print(''.join(str(x) for x in row))
-elif N % 4 == 1:        
-    for row in G5:    
-        print(''.join(str(x) for x in row))
-elif N % 4 == 3:
-    for row in G3:    
-        print(''.join(str(x) for x in row))
-
-
-
 ##############
 # SOLUTION 1 #
 ##############
-#R,C,N = input().strip().split(' ')
-#R,C,N = [int(R),int(C),int(N)]
-#G = []
-#Gsec = [[0 for x in range(C)] for y in range(R)]
-#
-#for c in range(R):
+G  = []
+N,M = input().strip().split(' ')
+N,M = [int(N),int(M)]
+for i in range(N):
+    G.append((input().strip()).split())
 #    G.append(list(input().strip()))
-#
-#for sec in range(N + 1):
-#    print("SECOND => ", sec)
-#    if sec % 2 == 0 and sec != 0:   # Plant bombs
-#        for row in range(R):
-#            for col in range(C):
-#                if G[row][col] == ".":
-#                    G[row][col]    = "O"
-#                    Gsec[row][col] = 1
-#                else:
-#                    Gsec[row][col] += 1
-#    else:
-#        for row in range(R):
-#            for col in range(C):
-#                if G[row][col] == "O" and Gsec[row][col] == 3:   # Bonb detonates
-#                    G[row][col]    = "."
-#                    Gsec[row][col] = 0
-#                    # Detonate neighboring cells
-#                    if row >= 1:
-#                        G[row - 1][col]    = "."
-#                        Gsec[row - 1][col] = 0
-#                    if row < R - 1 and Gsec[row + 1][col] != 3:    
-#                        G[row + 1][col]    = "."
-#                        Gsec[row + 1][col] = 0
-#                    if col >= 1:
-#                        G[row][col - 1]    = "."
-#                        Gsec[row][col - 1] = 0
-#                    if col < C - 1 and Gsec[row][col + 1] != 3:
-#                        G[row][col + 1]    = "."
-#                        Gsec[row][col + 1] = 0
-#                elif G[row][col] == "O" and Gsec[row][col] < 3:
-#                    Gsec[row][col] += 1
-#    
-#    for row in G:    
-#        print(''.join(str(x) for x in row))
-#    print("\r")
-#    for row in Gsec:
-#        print(''.join(str(x) for x in row))
-#    print("\r")
+print(G)
+
+print(G[0])
+print(G[0][1])
+print(G[1])
+#for row in range(N):
+#    print("row => ", row)
+#    for col in range(M):
+#        print("col => ", col)
+#        print(G[row][col])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
